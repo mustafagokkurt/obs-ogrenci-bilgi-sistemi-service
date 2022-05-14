@@ -1,22 +1,19 @@
 package com.mg.obs.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mg.obs.criteria.SearchCriteria;
 import com.mg.obs.entity.Student;
 import com.mg.obs.service.StudentService;
 
@@ -49,18 +46,20 @@ public class StudentController {
 	public List<Student> getAll(
 			@RequestParam(required = false) String tckn, 
 			@RequestParam(required = false) String adi, 
+			@RequestParam(required = false) String soyadi,
 			@RequestParam(required = false) String telefon, 
-			@RequestParam() int sehir,
-			@RequestParam() int ilce) {				
+			@RequestParam(required = false, defaultValue = "0") int sehir,
+			@RequestParam(required = false, defaultValue = "0") int ilce) {				
 		
-		List<Student> list = studentService.getAll(tckn, adi, sehir, ilce, telefon);
-		Student student = new Student();
+		List<Student> list = studentService.getAll(tckn, adi, soyadi, sehir, ilce, telefon);
+		//Student student = new Student();
 
 		return list;				 		    
 	}
 	
-	@PostMapping("/add")
-	public Student add(@RequestBody Student student) {
+	@PostMapping("/save")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public Student save(@RequestBody Student student) {
 		Student retVal = studentService.save(student);
 		return retVal;
 	}
@@ -70,7 +69,15 @@ public class StudentController {
 		studentService.delete(student);
 	}
 	
+	@GetMapping("/{id}")
+	public Student getById(@PathVariable long id) {
+		return this.studentService.findById(id);
+	}
 	
+//	@DeleteMapping("/{id}")
+//	public void delete(@PathVariable long id) {
+//		studentService.findById(0);
+//	}
 	
 	
 	

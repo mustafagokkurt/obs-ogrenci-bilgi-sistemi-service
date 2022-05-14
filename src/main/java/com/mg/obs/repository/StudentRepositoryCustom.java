@@ -9,5 +9,5 @@ public interface StudentRepositoryCustom {
 	
 	public List<Student> findAll(List<SearchCriteria> searchCriterias);
 	
-	public List<Student> findAll(String tckn, String adi, int sehir, int ilce, String telefon);
+	public List<Student> findAll(String tckn, String adi, String soyadi, int sehir, int ilce, String telefon);
 }

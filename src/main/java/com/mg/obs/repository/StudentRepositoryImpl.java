@@ -42,11 +42,12 @@ public class StudentRepositoryImpl implements StudentRepositoryCustom {
 	}
 
 	@Override
-	public List<Student> findAll(String tckn, String adi, int sehir, int ilce, String telefon) {
+	public List<Student> findAll(String tckn, String adi, String soyadi, int sehir, int ilce, String telefon) {
 		Query query = new Query();
 		
 		if(tckn != null && !tckn.isEmpty()) query.addCriteria(Criteria.where("Tckn").regex(tckn.toString()));
 		if(adi != null && !adi.isEmpty()) query.addCriteria(Criteria.where("Adi").regex(adi));
+		if(soyadi != null && !soyadi.isEmpty()) query.addCriteria(Criteria.where("Soyadi").regex(soyadi, "i"));
 		if(sehir > 0) query.addCriteria(Criteria.where("Sehir").is(sehir));
 		if(ilce > 0) query.addCriteria(Criteria.where("Ilce").is(ilce));
 		if(telefon!=null && !telefon.isEmpty()) query.addCriteria(Criteria.where("Telefon").regex(telefon));

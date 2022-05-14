@@ -1,6 +1,5 @@
 package com.mg.obs.repository;
 
-import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-import com.mg.obs.criteria.SearchCriteria;
 import com.mg.obs.entity.IdSequence;
-import com.mg.obs.entity.Student;
 
 public class IdSequenceRepositoryImpl implements IdSequenceRepositoryCustom  {
 

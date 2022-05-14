@@ -27,8 +27,8 @@ public class StudentService {
 		return studentRepo.findAll(searchCriterias);
 	}
 	
-	public List<Student> getAll(String tckn, String adi, int sehir, int ilce, String telefon){
-		return studentRepo.findAll(tckn, adi, sehir, ilce, telefon);
+	public List<Student> getAll(String tckn, String adi, String soyadi, int sehir, int ilce, String telefon){
+		return studentRepo.findAll(tckn, adi, soyadi, sehir, ilce, telefon);
 	}
 	
 	public Student save(Student student){
@@ -41,7 +41,18 @@ public class StudentService {
 	}
 	
 	public void delete(Student student){
+		
+		Student record = findById(student.getId());
+		
+		if(record == null) {
+			throw new NullPointerException(String.format("student with ID %s does not exist.\"", student.getId()));
+		}
+		
 		studentRepo.deleteById((long) student.getId());
+	}
+	
+	public Student findById(long id){
+		return studentRepo.findById(id).orElse(null);
 	}
 	
 }
