@@ -1,10 +1,6 @@
 package com.mg.obs;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
+import com.mg.obs.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.mg.obs.entity.Student;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ObsOgrenciBilgiSistemiApplicationTests {
@@ -40,7 +39,7 @@ class ObsOgrenciBilgiSistemiApplicationTests {
 	@Test
 	void testSave() throws MalformedURLException {
 
-		Student student = new Student(1, "", "", "", 1, 1, "");
+		Student student = new Student(1, "12591462426", "Mustafa", "Gökkurt", 1, 1, "5052510615");
 
 		ResponseEntity<Student> response = restTemplate().postForEntity(
 				new URL(BASE_URL + "/save").toString(), student, Student.class);
@@ -73,12 +72,6 @@ class ObsOgrenciBilgiSistemiApplicationTests {
 		assertEquals(response.getBody().getId(), response2.getBody().getId());
 		assertEquals(HttpStatus.OK, response3.getStatusCode());
 		assertEquals(null, response4.getBody());
-	}
-	
-	@Test
-	void test () {
-		
-		
 	}
 
 	
